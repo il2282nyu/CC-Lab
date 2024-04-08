@@ -47,8 +47,8 @@ class Particle {
     this.x = startX;
     this.y = startY;
     this.dia = random(3,10);
-    this.xSpd = random(-1.5,0)
-    this.ySpd = random(-2,-0.5)
+    this.xSpd = random(-1,1)
+    this.ySpd = random(-3,-1)
   }
   // methods (functions): particle's behaviors
   update() {
