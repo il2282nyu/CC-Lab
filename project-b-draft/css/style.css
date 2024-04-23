@@ -1,0 +1,58 @@
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100%;
+  background-color: black;
+}
+
+.app {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  text-align: center;
+  color: white;
+  padding: 40px; /* Increased padding for overall content */
+}
+
+#quiz {
+  margin-bottom: 40px; /* Increased spacing between quiz and submit button */
+}
+
+.question {
+  margin-top: 300px;
+  margin-bottom: 20px; /* Increased spacing between questions */
+}
+
+.question h1 {
+  margin-bottom: 20px; /* Increased spacing between question titles */
+}
+
+#submit {
+  font-size: 20px;
+  background-color: #253c98;
+  color: white;
+  border: 0px;
+  border-radius: 10px;
+  padding: 20px;
+  cursor: pointer;
+}
+
+#submit:hover {
+  background-color: #7588d3;
+}
+
+#canvasContainer {
+  margin-bottom: 40px; /* Increased spacing between canvas and submit button */
+  /* Add any additional styling for your canvas here */
+}
+
+/* Gradient effect */
+.container {
+  background: linear-gradient(to bottom, black 0%, white 100%);
+}
