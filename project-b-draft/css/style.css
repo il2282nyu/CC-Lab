@@ -48,11 +48,9 @@ html, body {
 }
 
 #canvasContainer {
-  margin-bottom: 40px; /* Increased spacing between canvas and submit button */
-  /* Add any additional styling for your canvas here */
+  margin-bottom: 40px; 
 }
 
-/* Gradient effect */
 .container {
   background: linear-gradient(to bottom, black 0%, white 100%);
 }
