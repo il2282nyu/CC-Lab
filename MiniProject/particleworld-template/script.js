@@ -34,7 +34,7 @@ function mouseClicked() {
   if (mouseY > 490) {
     particles = [];
     for (let i = 0; i < NUM_OF_PARTICLES; i++) {
-      particles[i] = new Particle(random(width), height - 30); 
+      particles.push(new Particle(random(width), height - 30)); 
     }
     isMouseClicked = true;
   }
