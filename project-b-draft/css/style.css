@@ -17,20 +17,20 @@ html, body {
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   text-align: center;
   color: white;
-  padding: 40px; /* Increased padding for overall content */
+  padding: 40px; 
 }
 
 #quiz {
-  margin-bottom: 40px; /* Increased spacing between quiz and submit button */
+  margin-bottom: 40px; 
 }
 
 .question {
   margin-top: 300px;
-  margin-bottom: 20px; /* Increased spacing between questions */
+  margin-bottom: 20px; 
 }
 
 .question h1 {
-  margin-bottom: 20px; /* Increased spacing between question titles */
+  margin-bottom: 20px;
 }
 
 #submit {
