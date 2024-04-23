@@ -41,6 +41,7 @@ html, body {
   border-radius: 10px;
   padding: 20px;
   cursor: pointer;
+  margin-top: 40px;
 }
 
 #submit:hover {
@@ -52,5 +53,5 @@ html, body {
 }
 
 .container {
-  background: linear-gradient(to bottom, black 0%, white 100%);
+  background: linear-gradient(to bottom, black 40%, white 100%);
 }
