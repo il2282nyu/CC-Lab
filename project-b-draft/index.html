@@ -9,7 +9,11 @@
   <script src="js/lib/p5.sound.js"></script>
 </head>
 <body>
-  <div class="container">
+  <audio id="backgroundAudio">
+    <source src="assets/message.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="container" onclick="playAudio()">
     <div class="app">
       <h1>What Anime are you?</h1>
       <div id="quiz">
@@ -20,8 +24,10 @@
     </div>
     <div id="canvasContainer"></div>
   </div>
+
   <script src="js/landing.js"></script>
   <script src="js/landingScript.js"></script>
   <script src="https://replit.com/public/js/replit-badge.js" theme="blue" defer></script>
 </body>
 </html>
+

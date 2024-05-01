@@ -1,65 +1,86 @@
-const quizContainer = document.getElementById('quiz');
-const resultsContainer = document.getElementById('results');
-const submitButton = document.getElementById('submit');
-
-const myQuestions = [
-  {
-    question: "Question 1?",
-    answers: {
-      a: "Option 1", 
-      b: "Option 2",
-      c: "Option 3",
-    },
-    optionA: "a",
-    optionB: "b",
-    optionC: "c", 
-  },
-  {
-    question: "Question 2?",
-    answers: {
-      a: "Option 1",
-      b: "Option 2",
-      c: "Option 3",
-    },
-    optionA: "a",
-    optionB: "b",
-    optionC: "c", 
-  },
-  {
-    question: "Question 3?",
-    answers: {
-      a: "Option 1",
-      b: "Option 2",
-      c: "Option 3",
-    },
-    optionA: "a",
-    optionB: "b",
-    optionC: "c",
-  },
-  {
-    question: "Question 4?",
-    answers: {
-      a: "Option 1",
-      b: "Option 2",
-      c: "Option 3",
-    },
-    optionA: "a",
-    optionB: "b",
-    optionC: "c",
+class Quiz {
+  constructor(quizContainerId, submitButtonId) {
+    this.quizContainer = document.getElementById(quizContainerId);
+    this.submitButton = document.getElementById(submitButtonId);
+    this.myQuestions = [
+      {
+        question: "Which type of creature would you prefer as a companion?",
+        answers: {
+          a: "Cute and cuddly",
+          b: "Cool and powerful",
+          c: "Quirky and mischievous",
+        },
+        optionA: "a",
+        optionB: "b",
+        optionC: "c",
+      },
+      {
+        question: "What kind of adventures do you enjoy most?",
+        answers: {
+          a: "Exploring vast landscapes",
+          b: "Battling powerful foes",
+          c: "Getting into humorous and unexpected situations",
+        },
+        optionA: "a",
+        optionB: "b",
+        optionC: "c", 
+      },
+      {
+        question: "What's your favorite kind of team dynamic?",
+        answers: {
+          a: "Friendship and teamwork",
+          b: "Strategic planning and cooperation",
+          c: "Unpredictability and surprises",
+        },
+        optionA: "a",
+        optionB: "b",
+        optionC: "c",
+      },
+      {
+        question: "What's your preferred method of transportation?",
+        answers: {
+          a: "Riding on epic creatures",
+          b: "Walking or running",
+          c: "Finding creative and unconventional ways to get around",
+        },
+        optionA: "a",
+        optionB: "b",
+        optionC: "c",
+      },
+    
+      {
+        question: "How do you handle challenges?",
+        answers: {
+          a: "With determination and perseverance",
+          b: "By strategizing and adapting",
+          c: "With humor and spontaneity",
+        },
+        optionA: "a",
+        optionB: "b",
+        optionC: "c",
+      },
+    
+      {
+        question: "What's your ideal way to spend a day?",
+        answers: {
+          a: "Exploring nature and making new friends",
+          b: "Training and battling to become stronger",
+          c: "Having fun and causing a bit of mischief wherever you go",
+        },
+        optionA: "a",
+        optionB: "b",
+        optionC: "c",
+      },
+    ];
   }
-];
 
-function buildQuiz(){
-  const output = [];
+  buildQuiz() {
+    const output = [];
 
-  myQuestions.forEach(
-    (currentQuestion, questionNumber) => {
-      
-      
+    this.myQuestions.forEach((currentQuestion, questionNumber) => {
       const answers = [];
 
-      for(letter in currentQuestion.answers){
-
+      for (const letter in currentQuestion.answers) {
         answers.push(
           `<label>
             <input type="radio" name="question${questionNumber}" value="${letter}">
@@ -73,43 +94,51 @@ function buildQuiz(){
         `<div class="question"> ${currentQuestion.question} </div>
         <div class="answers"> ${answers.join('')} </div>`
       );
-    }
-  );
+    });
 
-  quizContainer.innerHTML = output.join('');
-}
+    this.quizContainer.innerHTML = output.join('');
+  }
 
-
-function showResults(){
-    const answerContainers = quizContainer.querySelectorAll('.answers');
+  showResults() {
+    const answerContainers = this.quizContainer.querySelectorAll('.answers');
     let score = 0;
-  
-    myQuestions.forEach((currentQuestion, questionNumber) => {
+
+    this.myQuestions.forEach((currentQuestion, questionNumber) => {
       const answerContainer = answerContainers[questionNumber];
       const selector = `input[name=question${questionNumber}]:checked`;
       const userAnswer = (answerContainer.querySelector(selector) || {}).value;
-  
-      if(userAnswer === currentQuestion.optionA){
+
+      if (userAnswer === currentQuestion.optionA) {
         score += 1;
-      }else if(userAnswer === currentQuestion.optionB){
+      } else if (userAnswer === currentQuestion.optionB) {
         score += 2;
-      }else if (userAnswer === currentQuestion.optionC){
+      } else if (userAnswer === currentQuestion.optionC) {
         score += 3;
       }
     });
-  
-    if (score >= 1 && score <= 4) {
+
+    if (score >= 1 && score <= 6) {
       window.location.href = 'pokemon.html';
-    } else if (score >= 5 && score <= 8) {
+    } else if (score > 6 && score <= 12) {
       window.location.href = 'digimon.html';
-    } else if (score >= 9 && score <= 12) {
+    } else if (score > 12 && score <= 18) {
       window.location.href = 'shinchan.html';
     }
   }
-  
+
+  playAudio() {
+    var audio = document.getElementById("backgroundAudio");
+    if (audio.paused) {
+      audio.play();
+    }
+  }
+
+  initialize() {
+    this.buildQuiz();
+    this.submitButton.addEventListener('click', () => this.showResults());
+  }
+}
 
 
-
-buildQuiz();
-
-submitButton.addEventListener('click', showResults);
+const myQuiz = new Quiz('quiz', 'submit');
+myQuiz.initialize();
