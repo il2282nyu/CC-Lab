@@ -136,9 +136,10 @@ class Quiz {
   initialize() {
     this.buildQuiz();
     this.submitButton.addEventListener('click', () => this.showResults());
+
+    document.addEventListener('DOMContentLoaded', () => this.playAudio());
   }
 }
-
 
 const myQuiz = new Quiz('quiz', 'submit');
 myQuiz.initialize();
