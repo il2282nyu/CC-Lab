@@ -7,6 +7,10 @@ let counter = 0;
 let groan;
 let shinTheme;
 let shinWorld;
+let bo;
+let kaz;
+let zhen;
+let shinCharas = [];
 
 function preload() {
   soundFormats('mp3', 'ogg');
@@ -25,6 +29,22 @@ function setup() {
   }
   imgChoco = loadImage("./assets/chocobi.png");
   shinWorld = loadImage("./assets/shinchan-world.jpeg");
+  bo = loadImage("./assets/shinchan-chara/bo.gif");
+  kaz = loadImage("./assets/shinchan-chara/kaz.gif");
+  zhen = loadImage("./assets/shinchan-chara/zhen.gif");
+  
+  let characterSpacing = 50; 
+  let characterSize = 200; 
+  let totalWidth = (characterSize + characterSpacing) * 3 - characterSpacing; // Calculate total width of all characters
+  
+  let startX = (width - totalWidth) / 2;
+  let bottomY = windowHeight + 190; // Adjusted bottom position
+  
+  let boInstance = new shinChara(bo, startX, bottomY - characterSize, characterSize);
+  let kazInstance = new shinChara(kaz, startX + characterSize + characterSpacing, bottomY - characterSize, characterSize);
+  let zhenInstance = new shinChara(zhen, startX + (characterSize + characterSpacing) * 2, bottomY - characterSize, characterSize);
+  
+  shinCharas.push(boInstance, kazInstance, zhenInstance);
 }
 
 function draw() {
@@ -46,10 +66,12 @@ function draw() {
 
   if (!coverPage && counter > 260) {
     image(shinWorld, 0, 400, width, 600);
+    for (let chara of shinCharas) {
+      chara.display();
+    }
   }
 
 }
-
 
 function mouseClicked() {
   if (coverPage) {
@@ -73,8 +95,6 @@ function mouseClicked() {
   }
 }
 
-
-
 function tiredMan() {
   for (let i = 0; i < tirePositions.length; i++) {
     image(gifTire, tirePositions[i].x, tirePositions[i].y, 180, 150);
@@ -82,5 +102,18 @@ function tiredMan() {
     if (tirePositions[i].x < -180) {
       tirePositions[i].x = width - 100; 
     }
+  }
+}
+
+class shinChara {
+  constructor(img, x, y, size) {
+    this.img = img;
+    this.x = x;
+    this.y = y;
+    this.size = size;
+  }
+
+  display() {
+    image(this.img, this.x, this.y, this.size, this.size);
   }
 }
