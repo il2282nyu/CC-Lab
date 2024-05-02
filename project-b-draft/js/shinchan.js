@@ -10,6 +10,7 @@ let shinWorld;
 let bo;
 let kaz;
 let zhen;
+let shin;
 let shinCharas = [];
 
 function preload() {
@@ -32,19 +33,22 @@ function setup() {
   bo = loadImage("./assets/shinchan-chara/bo.gif");
   kaz = loadImage("./assets/shinchan-chara/kaz.gif");
   zhen = loadImage("./assets/shinchan-chara/zhen.gif");
+  shin = loadImage("./assets/shinchan-chara/shin.gif");
   
-  let characterSpacing = 50; 
-  let characterSize = 200; 
-  let totalWidth = (characterSize + characterSpacing) * 3 - characterSpacing; // Calculate total width of all characters
+  let characterSpacing = 30; 
+  let characterSize = 150; 
+  let totalWidth = (characterSize + characterSpacing) * 3 - characterSpacing; 
   
   let startX = (width - totalWidth) / 2;
-  let bottomY = windowHeight + 190; // Adjusted bottom position
+  let bottomY = windowHeight + 190; 
+
+  let boInstance = new shinChara(bo, startX, bottomY - characterSize, characterSize, "There's always a new rock\nto discover everyday\nlife's a treasure hunt of fun!\nLet's collect every rock \nto make a hill of happiness!");
+  let kazInstance = new shinChara(kaz, startX + characterSize + characterSpacing, bottomY - characterSize, characterSize, "Don't make your goal\ntrying to become someone;\ninstead, make your goal to\n become the world's\n only one!");
+  let zhenInstance = new shinChara(zhen, startX + (characterSize + characterSpacing) * 2, bottomY - characterSize + 50, characterSize - 30, "We've made it through\n an ordinary day.\n It's truly something to\nbe happy about!"); 
+  let shinInstance = new shinChara(shin, startX + (characterSize + characterSpacing) * 3 , bottomY - characterSize - 10, characterSize, "Life has many different\nchapter, never be afraid\nJust learn it\n and try something new!\n 'Woof! Woof!'");
+
   
-  let boInstance = new shinChara(bo, startX, bottomY - characterSize, characterSize);
-  let kazInstance = new shinChara(kaz, startX + characterSize + characterSpacing, bottomY - characterSize, characterSize);
-  let zhenInstance = new shinChara(zhen, startX + (characterSize + characterSpacing) * 2, bottomY - characterSize, characterSize);
-  
-  shinCharas.push(boInstance, kazInstance, zhenInstance);
+  shinCharas.push(boInstance, kazInstance, zhenInstance, shinInstance);
 }
 
 function draw() {
@@ -81,6 +85,10 @@ function mouseClicked() {
     }
   } 
 
+  for (let chara of shinCharas) {
+    chara.checkClicked(); 
+  }
+
   for (let i = 0; i < tirePositions.length; i++) {
     if (
       mouseX > tirePositions[i].x &&
@@ -106,14 +114,43 @@ function tiredMan() {
 }
 
 class shinChara {
-  constructor(img, x, y, size) {
+  constructor(img, x, y, size, text) {
     this.img = img;
     this.x = x;
     this.y = y;
     this.size = size;
+    this.clicked = false; 
+    this.text = text; 
   }
 
   display() {
     image(this.img, this.x, this.y, this.size, this.size);
+    if (this.clicked) {
+      fill(255);
+      rect(this.x, this.y - 80, this.size, 80);
+      noStroke();
+      fill(0);
+      textSize(12);
+      textAlign(CENTER, CENTER);
+      text(this.text, this.x + this.size / 2, this.y - 40); 
+      fill(255);
+      textAlign(LEFT, TOP);
+    }
+  }
+
+  checkClicked() {
+    if (
+      mouseX > this.x &&
+      mouseX < this.x + this.size &&
+      mouseY > this.y &&
+      mouseY < this.y + this.size
+    ) {
+      this.clicked = !this.clicked; 
+    } else {
+      this.clicked = false; 
+    }
   }
 }
+
+
+
