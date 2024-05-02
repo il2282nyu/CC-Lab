@@ -6,6 +6,7 @@ let coverPage = true;
 let counter = 0;
 let groan;
 let pokeTheme;
+let pokeWorld;
 
 function preload() {
   soundFormats('mp3', 'ogg');
@@ -23,28 +24,31 @@ function setup() {
     tirePositions.push({x: width - j, y: -10}); 
   }
   imgPokeball = loadImage("./assets/pokeball.png");
+  pokeWorld = loadImage("./assets/pokemon-world.jpeg");
 }
 
 function draw() {
   let opa = random(0, 200);
-  background(255);
-  image(imgDys, 0, 0, width, 350);
-  image(imgPokeball, 80, 200, 20, 20);
+  background(0);
+  image(imgDys, 0, 0, width, 400);
+  image(imgPokeball, 80, 230, 20, 20);
   tiredMan();
   if (coverPage) {
     fill(0);
-    rect(0, 350, width, height);
+    rect(0, 400, width, height);
   }
   if (!coverPage && counter <= 120) {
     background(143, 244, 255, opa);
     counter += 1;
   }
-  console.log(counter);
+  if (!coverPage && counter > 120) {
+    image(pokeWorld, 0, 400, width, 450);
+  }
 }
 
 function mouseClicked() {
   if (coverPage) {
-    if (mouseX < 100 && mouseX > 80 && mouseY < 220 && mouseY > 200) {
+    if (mouseX < 100 && mouseX > 80 && mouseY < 250 && mouseY > 230) {
       coverPage = false;
       pokeTheme.play();
     }

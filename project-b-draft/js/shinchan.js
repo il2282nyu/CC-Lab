@@ -63,7 +63,7 @@ function draw() {
   tiredMan();
   if (coverPage) {
     fill(0);
-    rect(0, 350, width, height);
+    rect(0, 400, width, height);
   }
 
   if (!coverPage && counter <= 260) {

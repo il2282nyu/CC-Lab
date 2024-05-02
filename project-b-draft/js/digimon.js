@@ -6,6 +6,7 @@ let coverPage = true;
 let counter = 0;
 let groan;
 let digiTheme;
+let digiWorld;
 
 function preload() {
   soundFormats('mp3', 'ogg');
@@ -14,7 +15,7 @@ function preload() {
 }
 
 function setup() {
-  let canvas = createCanvas(windowWidth, windowHeight);
+  let canvas = createCanvas(windowWidth, windowHeight + 180);
   canvas.parent("container"); 
   background(220);
   imgDys = loadImage("./assets/dystopian-world.jpeg");
@@ -23,28 +24,33 @@ function setup() {
     tirePositions.push({x: width - j, y: -10}); 
   }
   imgDigivise = loadImage("./assets/digivise.png");
+  digiWorld = loadImage("./assets/digimon-world.jpeg");
 }
 
 function draw() {
   let opa = random(0, 200);
-  background(255);
-  image(imgDys, 0, 0, width, 350);
-  image(imgDigivise, 80, 200, 25, 20);
+  background(0);
+
+  image(imgDys, 0, 0, width, 400);
+  image(imgDigivise, 70, 230, 25, 20);
   tiredMan();
   if (coverPage) {
     fill(0);
-    rect(0, 350, width, height);
+    rect(0, 400, width, height);
   }
-  if (!coverPage && counter < 500) {
+  if (!coverPage && counter <= 500) {
     background(143, 244, 255, opa);
     counter += 1;
   }
-  console.log(counter)
+  
+  if (!coverPage && counter > 500) {
+    image(digiWorld, 0, 400, width, 600);
+  }
 }
 
 function mouseClicked() {
   if (coverPage) {
-    if (mouseX < 105 && mouseX > 80 && mouseY < 220 && mouseY > 200) {
+    if (mouseX < 95 && mouseX > 70 && mouseY < 250 && mouseY > 230) {
       coverPage = false;
       digiTheme.play();
     }
