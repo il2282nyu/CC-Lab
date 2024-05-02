@@ -117,9 +117,9 @@ class Quiz {
       }
     });
 
-    if (score >= 1 && score <= 6) {
+    if (score >= 1 && score <= 8) {
       window.location.href = 'pokemon.html';
-    } else if (score > 6 && score <= 12) {
+    } else if (score > 8 && score <= 12) {
       window.location.href = 'digimon.html';
     } else if (score > 12 && score <= 18) {
       window.location.href = 'shinchan.html';
