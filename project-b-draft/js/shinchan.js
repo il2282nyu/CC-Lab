@@ -11,6 +11,7 @@ let bo;
 let kaz;
 let zhen;
 let shin;
+let nene;
 let shinCharas = [];
 
 function preload() {
@@ -34,6 +35,7 @@ function setup() {
   kaz = loadImage("./assets/shinchan-chara/kaz.gif");
   zhen = loadImage("./assets/shinchan-chara/zhen.gif");
   shin = loadImage("./assets/shinchan-chara/shin.gif");
+  nene = loadImage("./assets/shinchan-chara/nene.gif");
   
   let characterSpacing = 30; 
   let characterSize = 150; 
@@ -46,9 +48,10 @@ function setup() {
   let kazInstance = new shinChara(kaz, startX + characterSize + characterSpacing, bottomY - characterSize, characterSize, "Don't make your goal\ntrying to become someone;\ninstead, make your goal to\n become the world's\n only one!");
   let zhenInstance = new shinChara(zhen, startX + (characterSize + characterSpacing) * 2, bottomY - characterSize + 50, characterSize - 30, "We've made it through\n an ordinary day.\n It's truly something to\nbe happy about!"); 
   let shinInstance = new shinChara(shin, startX + (characterSize + characterSpacing) * 3 , bottomY - characterSize - 10, characterSize, "Life has many different\nchapter, never be afraid\nJust learn it\n and try something new!\n 'Woof! Woof!'");
+  let neneInstance = new shinChara(nene, startX + (characterSize + characterSpacing) - 400, bottomY - characterSize, characterSize - 10, "If there is anything\nthat makes you upset,\n don't hold it in,\nrelease it all out.");
 
   
-  shinCharas.push(boInstance, kazInstance, zhenInstance, shinInstance);
+  shinCharas.push(boInstance, kazInstance, zhenInstance, shinInstance,neneInstance);
 }
 
 function draw() {
