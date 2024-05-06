@@ -1,6 +1,7 @@
 let imgShinchan;
 let gifPichu;
 let gifKoro;
+let peace;
 
 function setup() {
   let canvas = createCanvas(600, 400);
@@ -10,11 +11,13 @@ function setup() {
   gifPichu = loadImage("./assets/pichu.gif");
   gifKoro = loadImage("./assets/Koromon.gif");
   x = 0;
+  peace = loadImage("./assets/peace.jpeg");
 
 }
 
 function draw() {
   background(220);
+  image(peace, 0, 0, 600, 400);
   image(imgShinchan, 300, 220, 120, 180);
 
   if(gifPichu.getCurrentFrame() === 22){

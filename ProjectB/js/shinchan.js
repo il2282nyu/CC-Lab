@@ -13,8 +13,11 @@ let zhen;
 let shin;
 let nene;
 let shinCharas = [];
-let onMask = false;
 let mask;
+let maskX, maskY; 
+let maskSize = 50; 
+let maskBeingDragged = false; 
+let heaven;
 
 function preload() {
   soundFormats('mp3', 'ogg');
@@ -39,6 +42,7 @@ function setup() {
   shin = loadImage("./assets/shinchan-chara/shin.gif");
   nene = loadImage("./assets/shinchan-chara/nene.gif");
   mask = loadImage("./assets/mask.png");
+  heaven = loadImage("./assets/heaven.jpeg");
 
   let characterSpacing = 30; 
   let characterSize = 150; 
@@ -55,46 +59,120 @@ function setup() {
 
   
   shinCharas.push(boInstance, kazInstance, zhenInstance, shinInstance,neneInstance);
+
+
+  maskX = random(width - maskSize); 
+  maskY = height - 50; 
 }
 
 function draw() {
   let opa = random(0, 200);
   background(0);
 
-  image(imgDys, 0, 0, width, 400);
-  image(imgChoco, 70, 230, 50, 60);
-  tiredMan();
-  if (coverPage) {
-    fill(0);
-    rect(0, 400, width, height);
-  }
-
-  if (!coverPage && counter <= 260) {
-    background(143, 244, 255, opa);
-    counter += 1;
-  }
-
-
-  if (!coverPage && counter > 260) {
-    image(shinWorld, 0, 400, width, 600);
-    for (let chara of shinCharas) {
-      chara.display();
+  if (!allLasersActivated()) {
+    image(imgDys, 0, 0, width, 400);
+    image(imgChoco, 70, 230, 50, 60);
+    tiredMan();
+    if (coverPage) {
+      fill(0);
+      rect(0, 400, width, height);
     }
 
-    if (mouseX > 127 && mouseX < 177 && mouseY > 878 && mouseY < 908) {
-      onMask = true;
+    if (!coverPage && counter <= 260) {
+      background(143, 244, 255, opa);
+      counter += 1;
     }
 
-    // if (onMasK == true){
-    //   image(mask, mouseX, mouseY, 50, 30);
-    // }else{
-    //   image(mask, 127, 878, 50, 30);
-    // }
-  }
-  console.log(mouseX, mouseY)
+    if (!coverPage && counter > 260) {
+      image(shinWorld, 0, 400, width, 600);
+      for (let chara of shinCharas) {
+        chara.display();
+      }
 
-  
+      if (!maskBeingDragged) {
+        image(mask, maskX, maskY, maskSize, maskSize);
+      } else {
+        maskX = mouseX - maskSize / 2;
+        maskY = mouseY - maskSize / 2;
+        image(mask, maskX, maskY, maskSize, maskSize);
+      }
+
+      for (let chara of shinCharas) {
+        if (
+          maskX + maskSize > chara.x &&
+          maskX < chara.x + chara.size &&
+          maskY + maskSize > chara.y &&
+          maskY < chara.y + chara.size
+        ) {
+          chara.masked = true;
+        } else {
+          chara.masked = false;
+        }
+      }
+    }
+
+    fill('White');
+    textFont('Courier New', 22);
+    text('Earth 2024', width - 170, 370);
+    fill('Black');
+    rect(20, 340, 860, 50);
+    textSize(20);
+    fill('White');
+    text('If only there is a way out, if only I can find the hidden chocobi...', 30, 370);
+  } else {
+    shinTheme.stop();
+    image(heaven, 0, 0, width, height);
+    fill("Black")
+    textSize(30)
+    textFont("Courier New");
+    text("Anime has the power to erase all the misery", width/2 - 300, height/2)
+  }
 }
+
+
+function allLasersActivated() {
+  for (let chara of shinCharas) {
+    if (!chara.laserActive) {
+      return false;
+    }
+  }
+  return true;
+}
+
+
+function mousePressed() {
+
+  if (
+    mouseX > maskX &&
+    mouseX < maskX + maskSize &&
+    mouseY > maskY &&
+    mouseY < maskY + maskSize
+  ) {
+    maskBeingDragged = true;
+  }
+}
+
+function mouseDragged() {
+  if (maskBeingDragged) {
+    maskX = mouseX - maskSize / 2;
+    maskY = mouseY - maskSize / 2;
+  }
+}
+
+function mouseReleased() {
+  maskBeingDragged = false;
+  for (let chara of shinCharas) {
+    if (
+      maskX + maskSize > chara.x &&
+      maskX < chara.x + chara.size &&
+      maskY + maskSize > chara.y &&
+      maskY < chara.y + chara.size
+    ) {
+      chara.laserActive = true; 
+    }
+  }
+}
+
 
 function mouseClicked() {
   if (coverPage) {
@@ -133,29 +211,36 @@ function tiredMan() {
 }
 
 class shinChara {
-  constructor(img, x, y, size, text, tf) {
+  constructor(img, x, y, size, text, masked) {
     this.img = img;
     this.x = x;
     this.y = y;
     this.size = size;
     this.clicked = false; 
     this.text = text; 
+    this.masked = masked; 
+    this.laserActive = false; 
   }
 
   display() {
+    if (this.masked || this.laserActive) {
+      this.laser(); 
+    }
     image(this.img, this.x, this.y, this.size, this.size);
+
     if (this.clicked) {
       fill(255);
-      rect(this.x, this.y - 80, this.size, 80);
+      rect(this.x, this.y - 80, this.size + 20, 80);
       noStroke();
       fill(0);
-      textSize(12);
+      textFont('Verdana', 12);
       textAlign(CENTER, CENTER);
-      text(this.text, this.x + this.size / 2, this.y - 40); 
+      text(this.text, this.x + this.size / 2 + 10, this.y - 40); 
       fill(255);
       textAlign(LEFT, TOP);
     }
   }
+
 
   checkClicked() {
     if (
@@ -170,12 +255,9 @@ class shinChara {
     }
   }
 
-  laser(){
-    if (){
+  laser() {
+    fill(255, 255, 0);
+    rect(this.x, 0, this.size, 1000); 
   }
+
 }
-
-
-
-
-
