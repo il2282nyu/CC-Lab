@@ -13,6 +13,8 @@ let zhen;
 let shin;
 let nene;
 let shinCharas = [];
+let onMask = false;
+let mask;
 
 function preload() {
   soundFormats('mp3', 'ogg');
@@ -36,7 +38,8 @@ function setup() {
   zhen = loadImage("./assets/shinchan-chara/zhen.gif");
   shin = loadImage("./assets/shinchan-chara/shin.gif");
   nene = loadImage("./assets/shinchan-chara/nene.gif");
-  
+  mask = loadImage("./assets/mask.png");
+
   let characterSpacing = 30; 
   let characterSize = 150; 
   let totalWidth = (characterSize + characterSpacing) * 3 - characterSpacing; 
@@ -71,13 +74,26 @@ function draw() {
     counter += 1;
   }
 
+
   if (!coverPage && counter > 260) {
     image(shinWorld, 0, 400, width, 600);
     for (let chara of shinCharas) {
       chara.display();
     }
-  }
 
+    if (mouseX > 127 && mouseX < 177 && mouseY > 878 && mouseY < 908) {
+      onMask = true;
+    }
+
+    if (onMasK == true){
+      image(mask, mouseX, mouseY, 50, 30);
+    }else{
+      image(mask, 127, 878, 50, 30);
+    }
+  }
+  console.log(mouseX, mouseY)
+
+  
 }
 
 function mouseClicked() {
@@ -154,6 +170,12 @@ class shinChara {
     }
   }
 }
+
+// laser(){
+//   if (keyIsPressed && key == "1"){
+
+//   }
+// }
 
 
 
