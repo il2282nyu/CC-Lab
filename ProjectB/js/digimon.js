@@ -118,6 +118,7 @@ function draw() {
     text('If only there is a way out, if only I can find the hidden digivise...', 30, 370);
   } else {
     digiTheme.stop();
+    groan.stop();
     image(heaven, 0, 0, width, height);
     fill("Black")
     textSize(30)

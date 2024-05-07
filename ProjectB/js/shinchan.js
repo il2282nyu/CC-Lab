@@ -121,6 +121,8 @@ function draw() {
     text('If only there is a way out, if only I can find the hidden chocobi...', 30, 370);
   } else {
     shinTheme.stop();
+    groan.stop();
+
     image(heaven, 0, 0, width, height);
     fill("Black")
     textSize(30)

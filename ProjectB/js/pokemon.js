@@ -126,6 +126,8 @@ function draw() {
     text('If only there is a way out, if only I can find the hidden pokeball...', 30, 370);
   } else {
     pokeTheme.stop();
+    groan.stop();
+    
     image(heaven, 0, 0, width, height);
     fill("Black")
     textSize(30)
