@@ -75,12 +75,12 @@ function draw() {
     }
 
 
-    if (!coverPage && counter <= 500) {
+    if (!coverPage && counter <= 300) {
       background(143, 244, 255, opa);
       counter += 1;
     }
 
-    if (!coverPage && counter > 500) {
+    if (!coverPage && counter > 300) {
       image(digiWorld, 0, 400, width, 600);
       for (let chara of digiCharas) {
         chara.display();
@@ -115,7 +115,7 @@ function draw() {
     rect(20, 340, 860, 50);
     textSize(20);
     fill('White');
-    text('If only there is a way out, if only I can find the hidden digivise...', 30, 370);
+    text('If only there is a way out, if only I can find the hidden digivice...', 30, 370);
   } else {
     digiTheme.stop();
     groan.stop();

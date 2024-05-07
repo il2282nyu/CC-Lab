@@ -143,7 +143,6 @@ function allLasersActivated() {
 
 
 function mousePressed() {
-
   if (
     mouseX > maskX &&
     mouseX < maskX + maskSize &&
